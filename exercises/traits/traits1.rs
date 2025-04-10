@@ -7,7 +7,7 @@
 // Execute `rustlings hint traits1` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
+// I AM NOT DONE, test    
 
 trait AppendBar {
     fn append_bar(self) -> Self;
