@@ -9,8 +9,7 @@
 
 // I AM NOT DONE, test     
 // test
-// last test
-//
+// last
 
 
 trait AppendBar {
