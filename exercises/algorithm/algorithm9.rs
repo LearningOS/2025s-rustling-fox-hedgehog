@@ -2,7 +2,7 @@
 	heap
 	This question requires you to implement a binary heap function
 */
-// I AM NOT DONE
+// I AM DONE
 
 use std::cmp::Ord;
 use std::default::Default;
@@ -38,6 +38,13 @@ where
 
     pub fn add(&mut self, value: T) {
         //TODO
+        self.count += 1;
+        self.items.push(value);
+        let mut idx = self.count;
+        while idx / 2 != 0 && (self.comparator)(&self.items[idx], &self.items[idx/2]) {
+            self.items.swap(idx/2, idx);
+            idx /= 2;
+        }
     }
 
     fn parent_idx(&self, idx: usize) -> usize {
@@ -58,7 +65,16 @@ where
 
     fn smallest_child_idx(&self, idx: usize) -> usize {
         //TODO
-		0
+        if idx * 2 + 1 <= self.count {
+            if (self.comparator)(&self.items[idx*2], &self.items[idx*2+1]) {
+                idx * 2
+            } else {
+                idx * 2 + 1
+            }
+        } else {
+            idx * 2
+        }
+		
     }
 }
 
@@ -85,9 +101,37 @@ where
 
     fn next(&mut self) -> Option<T> {
         //TODO
-		None
+		if self.len() == 0 {
+            return None;
+        }
+
+        let res = std::mem::replace(&mut self.items[1], T::default());
+
+
+        self.count -= 1;
+        if self.count == 0 {
+            return Some(res);
+        }
+
+        self.items.swap(1, self.count + 1);
+        self.items.pop();
+        let mut cur = 1;
+        while self.children_present(cur) {
+            let child_idx = self.smallest_child_idx(cur);
+            if (self.comparator)(&self.items[child_idx], &self.items[cur]) {
+                self.items.swap(cur, child_idx);
+                cur = child_idx;
+            } else {
+                break;
+            }
+        }
+        return Some(res);
+        
     }
 }
+
+
+
 
 pub struct MinHeap;
 
@@ -112,6 +156,17 @@ impl MaxHeap {
         Heap::new(|a, b| a > b)
     }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 #[cfg(test)]
 mod tests {

@@ -72,33 +72,33 @@ impl<T> LinkedList<T> {
             },
         }
     }
-	// pub fn reverse(&mut self)
-    // {
-	// 	use std::mem::swap;
-    //     let n = self.length / 2;
-        
-    //     let mut l = self.start;
-    //     let mut r = self.end;
-
-    //     for i in 0..n {
-    //         let a = l.unwrap().as_ptr();
-    //         let b = r.unwrap().as_ptr();
-            
-    //         unsafe{ swap(&mut (*a).val, &mut (*b).val); };
-            
-    //         if i != n-1 {
-    //             unsafe {
-    //                 l = (*a).next;
-    //                 r = (*b).prev;
-    //             }
-    //         }
-    //     }
-	// }
-
-    pub fn reverse(&mut self)
+	pub fn reverse(&mut self)
     {
+		use std::mem::swap;
+        let n = self.length / 2;
+        
+        let mut l = self.start;
+        let mut r = self.end;
 
-    }
+        for i in 0..n {
+            let a = l.unwrap().as_ptr();
+            let b = r.unwrap().as_ptr();
+            
+            unsafe{ swap(&mut (*a).val, &mut (*b).val); };
+            
+            if i != n-1 {
+                unsafe {
+                    l = (*a).next;
+                    r = (*b).prev;
+                }
+            }
+        }
+	}
+
+    // pub fn reverse(&mut self)
+    // {
+
+    // }
 }
 
 impl<T> Display for LinkedList<T>
